@@ -1,0 +1,7 @@
+name: PluginHook
+main: main.java.me.avankziar.ph.spigot.PH
+version: 1
+author: Avankziar
+api-version: 1.19
+softdepend: [InterfaceHub, PremiumVanish]
+description: A IFH PluginHook
