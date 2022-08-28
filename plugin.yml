@@ -3,5 +3,5 @@ main: main.java.me.avankziar.ph.spigot.PH
 version: 1
 author: Avankziar
 api-version: 1.19
-softdepend: [InterfaceHub, PremiumVanish]
+softdepend: [InterfaceHub,PremiumVanish,LuckPerm]
 description: A IFH PluginHook

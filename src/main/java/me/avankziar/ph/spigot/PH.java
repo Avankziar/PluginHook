@@ -7,6 +7,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import main.java.me.avankziar.ph.spigot.ifh.provider.PermissionProvider;
 import main.java.me.avankziar.ph.spigot.ifh.provider.VanishProvider;
 
 public class PH extends JavaPlugin
@@ -64,6 +65,17 @@ public class PH extends JavaPlugin
 	        this,
 	        ServicePriority.Normal);
 	    	log.info(pluginName + " detected InterfaceHub >>> Vanish.class is provided!");
+		}
+		if (existHook("LuckPerms")) 
+		{
+			PermissionProvider p = new PermissionProvider();
+        	plugin.getServer().getServicesManager().register(
+        			main.java.me.avankziar.ifh.spigot.permission.Permission.class,
+             		p,
+             		plugin,
+             		ServicePriority.Normal);
+        	log.info(pluginName + " detected InterfaceHub >>> Permission.class is consumed!");
+			return;
 		}
 	}
 	
