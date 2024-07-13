@@ -1,20 +1,28 @@
 package main.java.me.avankziar.ph.spigot.ifh.provider;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import org.bukkit.entity.Player;
 
 import main.java.me.avankziar.ifh.spigot.permission.Permission;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.context.DefaultContextKeys;
 import net.luckperms.api.context.ImmutableContextSet;
+import net.luckperms.api.model.data.NodeMap;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
+import net.luckperms.api.node.NodeType;
+import net.luckperms.api.node.types.PermissionNode;
 
 public class PermissionProvider implements Permission
 {
@@ -23,6 +31,34 @@ public class PermissionProvider implements Permission
 	public PermissionProvider()
 	{
 		lp = LuckPermsProvider.get();
+	}
+	
+	//Eine Methode um Permission, welche direkt beim Spieler liegen, von LP zu holen, auf dem Server zwischen zu speichern.
+	//Beim Joinen werden die Temporären Perms gesetzt und beim leaven wird das in einer mysql zwischen gespeichert.
+	private void dodo(User user, Player player)
+	{
+		Set<PermissionNode> pnode = user.getNodes(NodeType.PERMISSION).stream()
+			    .filter(Node::hasExpiry)
+			    .collect(Collectors.toSet());
+		NodeMap data = user.data();
+		for(PermissionNode pn : pnode)
+		{
+			pn.getKey();
+			pn.getExpiryDuration().get(ChronoUnit.MILLIS);
+			pn.getValue();
+			data.remove(pn);
+			lp.getUserManager().saveUser(user);
+			
+		}
+		
+		//Hinzufügen beim joinen.
+		Node node = Node.builder("some.node.key")
+		        .value(false)
+		        .expiry(Duration.ofMillis(0))
+		        .withContext(DefaultContextKeys.SERVER_KEY, "survival")
+		        .build();
+		data.add(node);
+		lp.getUserManager().saveUser(user);
 	}
 	
 	private User getOnlineUser(Player player)
