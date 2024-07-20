@@ -6,24 +6,20 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 
 import de.myzelyam.api.vanish.VanishAPI;
-import main.java.me.avankziar.ifh.spigot.interfaces.Vanish;
+import me.avankziar.ifh.spigot.interfaces.Vanish;
 
 public class VanishProvider implements Vanish
 {
-	@Override
 	public ArrayList<UUID> getInvisiblePlayers()
 	{
 		return (ArrayList<UUID>) VanishAPI.getInvisiblePlayers();
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Override
 	public ArrayList<UUID> getAllInvisiblePlayers()
 	{
 		return (ArrayList<UUID>) VanishAPI.getAllInvisiblePlayers();
 	}
 	
-	@Override
 	public boolean isInvisible(Player player)
 	{
 		return VanishAPI.isInvisible(player);

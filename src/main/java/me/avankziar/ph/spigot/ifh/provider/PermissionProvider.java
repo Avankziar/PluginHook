@@ -11,14 +11,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.Unmodifiable;
 
-import main.java.me.avankziar.ifh.spigot.permission.Permission;
+import me.avankziar.ifh.spigot.permission.Permission;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.context.DefaultContextKeys;
 import net.luckperms.api.context.ImmutableContextSet;
 import net.luckperms.api.model.data.NodeMap;
-import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
 import net.luckperms.api.node.NodeType;
@@ -147,7 +148,7 @@ public class PermissionProvider implements Permission
 	public boolean isInGroup(Player player, String group)
 	{
 		User user = getOnlineUser(player);
-		Collection<Group> inheritedGroups = user.getInheritedGroups(user.getQueryOptions());
+		@NonNull @Unmodifiable Collection<net.luckperms.api.model.group.Group> inheritedGroups = user.getInheritedGroups(user.getQueryOptions());
 	    return inheritedGroups.stream().anyMatch(g -> g.getName().equals(group));
 	}
 	
@@ -159,7 +160,7 @@ public class PermissionProvider implements Permission
 	public ArrayList<String> getGroups()
 	{
 		ArrayList<String> groups = new ArrayList<>();
-		for(Group g : lp.getGroupManager().getLoadedGroups())
+		for(net.luckperms.api.model.group.Group g : lp.getGroupManager().getLoadedGroups())
 		{
 			groups.add(g.getName());
 		}		

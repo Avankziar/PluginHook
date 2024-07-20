@@ -60,7 +60,7 @@ public class PH extends JavaPlugin
 		{
 			VanishProvider vp = new VanishProvider();
 	    	plugin.getServer().getServicesManager().register(
-	    	main.java.me.avankziar.ifh.spigot.interfaces.Vanish.class,
+	    	me.avankziar.ifh.spigot.interfaces.Vanish.class,
 	        vp,
 	        this,
 	        ServicePriority.Normal);
@@ -70,7 +70,7 @@ public class PH extends JavaPlugin
 		{
 			PermissionProvider p = new PermissionProvider();
         	plugin.getServer().getServicesManager().register(
-        			main.java.me.avankziar.ifh.spigot.permission.Permission.class,
+        			me.avankziar.ifh.spigot.permission.Permission.class,
              		p,
              		plugin,
              		ServicePriority.Normal);
@@ -96,7 +96,7 @@ public class PH extends JavaPlugin
 				cancel();
 				return;
 			    }
-			    RegisteredServiceProvider<main.java.me.avankziar.ifh.spigot.administration.Administration> rsp = 
+			    RegisteredServiceProvider<me.avankziar.ifh.spigot.administration.Administration> rsp = 
 		                         getServer().getServicesManager().getRegistration(Administration.class);
 			    if (rsp == null) 
 			    {
